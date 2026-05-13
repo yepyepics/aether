@@ -1,0 +1,198 @@
+<h2>Детальный макет — вариант B</h2>
+<p class="subtitle">Два состояния экрана. Кликни на тот, который ощущается правильным, или скажи что поменять.</p>
+
+<div class="split">
+
+  <!-- STATE 1: Idle -->
+  <div class="mockup">
+    <div class="mockup-header">Состояние 1 — Ожидание</div>
+    <div class="mockup-body" style="display:flex;justify-content:center;align-items:center;padding:24px;">
+      <div style="
+        width: 400px;
+        background: #ffffff;
+        border-radius: 12px;
+        border: 1px solid #e5e7eb;
+        font-family: Inter, sans-serif;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      ">
+        <!-- Top bar -->
+        <div style="
+          height: 48px;
+          padding: 0 20px;
+          border-bottom: 1px solid #f3f4f6;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          background: #ffffff;
+        ">
+          <span style="font-size:14px;font-weight:600;color:#111111;letter-spacing:-0.3px;">yt-dlgui</span>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="font-size:12px;color:#6b7280;background:#f5f5f5;padding:3px 10px;border-radius:9999px;font-weight:500;">v2025.5</span>
+            <span style="font-size:16px;cursor:pointer;">⚙</span>
+          </div>
+        </div>
+
+        <!-- Body -->
+        <div style="padding:20px;display:flex;flex-direction:column;gap:16px;">
+
+          <!-- URL input -->
+          <div>
+            <div style="font-size:11px;font-weight:600;color:#374151;letter-spacing:0.4px;text-transform:uppercase;margin-bottom:6px;">Ссылка</div>
+            <div style="
+              display:flex;align-items:center;gap:8px;
+              background:#ffffff;border:1px solid #e5e7eb;border-radius:8px;
+              padding:0 12px;height:40px;
+            ">
+              <span style="font-size:13px;color:#898989;flex:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">Вставьте ссылку на видео…</span>
+              <span style="font-size:12px;font-weight:600;color:#111111;white-space:nowrap;cursor:pointer;border-left:1px solid #e5e7eb;padding-left:10px;">Вставить</span>
+            </div>
+          </div>
+
+          <!-- Format + Quality row -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+
+            <!-- Format -->
+            <div>
+              <div style="font-size:11px;font-weight:600;color:#374151;letter-spacing:0.4px;text-transform:uppercase;margin-bottom:6px;">Формат</div>
+              <div style="
+                background:#f8f9fa;border-radius:9999px;
+                padding:4px;display:inline-flex;gap:2px;
+              ">
+                <div style="background:#111111;color:#ffffff;border-radius:9999px;padding:5px 14px;font-size:12px;font-weight:600;cursor:pointer;">Видео</div>
+                <div style="color:#6b7280;padding:5px 14px;font-size:12px;font-weight:500;cursor:pointer;">Аудио</div>
+              </div>
+            </div>
+
+            <!-- Quality -->
+            <div>
+              <div style="font-size:11px;font-weight:600;color:#374151;letter-spacing:0.4px;text-transform:uppercase;margin-bottom:6px;">Качество</div>
+              <div style="
+                background:#f8f9fa;border-radius:9999px;
+                padding:4px;display:inline-flex;gap:2px;
+              ">
+                <div style="background:#111111;color:#ffffff;border-radius:9999px;padding:5px 12px;font-size:12px;font-weight:600;cursor:pointer;">1080p</div>
+                <div style="color:#6b7280;padding:5px 12px;font-size:12px;font-weight:500;cursor:pointer;">720p</div>
+                <div style="color:#6b7280;padding:5px 12px;font-size:12px;font-weight:500;cursor:pointer;">480p</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Folder path -->
+          <div>
+            <div style="font-size:11px;font-weight:600;color:#374151;letter-spacing:0.4px;text-transform:uppercase;margin-bottom:6px;">Папка сохранения</div>
+            <div style="
+              background:#f5f5f5;border-radius:8px;padding:0 14px;
+              height:40px;display:flex;align-items:center;gap:8px;cursor:pointer;
+            ">
+              <span style="font-size:13px;color:#374151;flex:1;">~/Downloads</span>
+              <span style="font-size:12px;font-weight:600;color:#3b82f6;">Изменить →</span>
+            </div>
+          </div>
+
+          <!-- Download button -->
+          <div style="
+            background:#111111;color:#ffffff;border-radius:8px;
+            height:40px;display:flex;align-items:center;justify-content:center;
+            font-size:14px;font-weight:600;cursor:pointer;margin-top:2px;
+          ">Скачать</div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATE 2: Downloading -->
+  <div class="mockup">
+    <div class="mockup-header">Состояние 2 — Загрузка</div>
+    <div class="mockup-body" style="display:flex;justify-content:center;align-items:center;padding:24px;">
+      <div style="
+        width: 400px;
+        background: #ffffff;
+        border-radius: 12px;
+        border: 1px solid #e5e7eb;
+        font-family: Inter, sans-serif;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      ">
+        <!-- Top bar -->
+        <div style="
+          height: 48px;padding: 0 20px;
+          border-bottom: 1px solid #f3f4f6;
+          display: flex;align-items: center;justify-content: space-between;
+          background: #ffffff;
+        ">
+          <span style="font-size:14px;font-weight:600;color:#111111;letter-spacing:-0.3px;">yt-dlgui</span>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="font-size:12px;color:#6b7280;background:#f5f5f5;padding:3px 10px;border-radius:9999px;font-weight:500;">v2025.5</span>
+            <span style="font-size:16px;cursor:pointer;">⚙</span>
+          </div>
+        </div>
+
+        <!-- Body -->
+        <div style="padding:20px;display:flex;flex-direction:column;gap:16px;">
+
+          <!-- URL — filled -->
+          <div>
+            <div style="font-size:11px;font-weight:600;color:#374151;letter-spacing:0.4px;text-transform:uppercase;margin-bottom:6px;">Ссылка</div>
+            <div style="
+              background:#ffffff;border:1px solid #e5e7eb;border-radius:8px;
+              padding:0 14px;height:40px;display:flex;align-items:center;
+            ">
+              <span style="font-size:13px;color:#111111;flex:1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">https://youtube.com/watch?v=dQw4w9WgXcQ</span>
+            </div>
+          </div>
+
+          <!-- Format + Quality — locked -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;opacity:0.5;pointer-events:none;">
+            <div>
+              <div style="font-size:11px;font-weight:600;color:#374151;letter-spacing:0.4px;text-transform:uppercase;margin-bottom:6px;">Формат</div>
+              <div style="background:#f8f9fa;border-radius:9999px;padding:4px;display:inline-flex;gap:2px;">
+                <div style="background:#111111;color:#ffffff;border-radius:9999px;padding:5px 14px;font-size:12px;font-weight:600;">Видео</div>
+                <div style="color:#6b7280;padding:5px 14px;font-size:12px;font-weight:500;">Аудио</div>
+              </div>
+            </div>
+            <div>
+              <div style="font-size:11px;font-weight:600;color:#374151;letter-spacing:0.4px;text-transform:uppercase;margin-bottom:6px;">Качество</div>
+              <div style="background:#f8f9fa;border-radius:9999px;padding:4px;display:inline-flex;gap:2px;">
+                <div style="background:#111111;color:#ffffff;border-radius:9999px;padding:5px 12px;font-size:12px;font-weight:600;">1080p</div>
+                <div style="color:#6b7280;padding:5px 12px;font-size:12px;font-weight:500;">720p</div>
+                <div style="color:#6b7280;padding:5px 12px;font-size:12px;font-weight:500;">480p</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Progress card -->
+          <div style="background:#f5f5f5;border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <span style="font-size:13px;font-weight:600;color:#111111;">Загрузка…</span>
+              <span style="font-size:13px;font-weight:600;color:#111111;">42%</span>
+            </div>
+            <!-- Progress bar -->
+            <div style="background:#e5e7eb;border-radius:9999px;height:6px;overflow:hidden;">
+              <div style="background:#111111;height:6px;border-radius:9999px;width:42%;"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;">
+              <span style="font-size:12px;color:#6b7280;">2.50 MiB/s</span>
+              <span style="font-size:12px;color:#6b7280;">ETA 00:38</span>
+            </div>
+          </div>
+
+          <!-- Cancel button -->
+          <div style="
+            background:#ffffff;color:#111111;border-radius:8px;
+            height:40px;display:flex;align-items:center;justify-content:center;
+            font-size:14px;font-weight:600;cursor:pointer;border:1px solid #e5e7eb;
+          ">Отменить</div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div style="margin-top:20px;padding:16px;background:#f8f9fa;border-radius:8px;font-family:Inter,sans-serif;font-size:13px;color:#374151;line-height:1.5;">
+  <strong style="color:#111;">Заметки по дизайну:</strong>
+  Переключатели Формат/Качество используют <code>nav-pill-group</code> из дизайн-системы (фон #f8f9fa, активный элемент — белый pill внутри). Прогресс-бар в состоянии загрузки заменяет кнопку «Скачать» внутри карточки <code>surface-card</code>. Контролы блокируются (opacity 0.5) во время загрузки.
+</div>

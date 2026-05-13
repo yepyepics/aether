@@ -1,0 +1,119 @@
+<h2>Какой лейаут для главного экрана?</h2>
+<p class="subtitle">Все три варианта используют дизайн-систему из design.md: белый канвас, карточки #f5f5f5, чёрный CTA. Выбери что ближе к ощущению, которое ты хочешь.</p>
+
+<div class="cards">
+
+  <!-- Option A -->
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#ffffff;border:1px solid #e5e7eb;border-radius:12px;padding:28px 24px;font-family:Inter,sans-serif;min-height:260px;display:flex;flex-direction:column;gap:16px;">
+        <div style="text-align:center;margin-bottom:4px;">
+          <div style="font-size:22px;font-weight:600;color:#111;letter-spacing:-0.3px;">yt-dlgui</div>
+          <div style="font-size:13px;color:#6b7280;margin-top:2px;">Скачай любое видео или аудио</div>
+        </div>
+        <div style="background:#f5f5f5;border-radius:8px;padding:10px 14px;font-size:13px;color:#898989;">https://youtube.com/watch?v=...</div>
+        <div style="display:flex;gap:8px;">
+          <div style="flex:1;background:#111;color:#fff;border-radius:8px;padding:8px;text-align:center;font-size:12px;font-weight:600;">Видео</div>
+          <div style="flex:1;background:#f5f5f5;border-radius:8px;padding:8px;text-align:center;font-size:12px;color:#6b7280;">Аудио</div>
+        </div>
+        <div style="display:flex;gap:6px;">
+          <div style="flex:1;background:#111;color:#fff;border-radius:8px;padding:6px;text-align:center;font-size:11px;font-weight:600;">1080p</div>
+          <div style="flex:1;background:#f5f5f5;border-radius:8px;padding:6px;text-align:center;font-size:11px;color:#6b7280;">720p</div>
+          <div style="flex:1;background:#f5f5f5;border-radius:8px;padding:6px;text-align:center;font-size:11px;color:#6b7280;">480p</div>
+        </div>
+        <div style="background:#111;color:#fff;border-radius:8px;padding:10px;text-align:center;font-size:13px;font-weight:600;margin-top:auto;">Скачать</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Компактная карточка по центру</h3>
+      <p>Всё в одной карточке, выровненной по центру окна. Ощущение нативного macOS-приложения. Минимальный размер окна ~480×520px.</p>
+    </div>
+  </div>
+
+  <!-- Option B -->
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#ffffff;border-radius:12px;padding:0;font-family:Inter,sans-serif;min-height:260px;overflow:hidden;border:1px solid #e5e7eb;">
+        <!-- Header -->
+        <div style="padding:16px 20px;border-bottom:1px solid #f3f4f6;display:flex;align-items:center;justify-content:space-between;">
+          <span style="font-size:14px;font-weight:600;color:#111;">yt-dlgui</span>
+          <span style="font-size:11px;color:#6b7280;background:#f5f5f5;padding:3px 8px;border-radius:9999px;">v1.0</span>
+        </div>
+        <!-- Body -->
+        <div style="padding:20px;display:flex;flex-direction:column;gap:14px;">
+          <div style="background:#f5f5f5;border-radius:8px;padding:10px 14px;font-size:12px;color:#898989;display:flex;align-items:center;justify-content:space-between;">
+            <span>https://youtube.com/watch?v=...</span>
+            <span style="background:#111;color:#fff;font-size:10px;padding:3px 8px;border-radius:6px;">Вставить</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+            <div>
+              <div style="font-size:10px;font-weight:600;color:#374151;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;">Формат</div>
+              <div style="display:flex;gap:4px;">
+                <div style="background:#111;color:#fff;border-radius:6px;padding:5px 10px;font-size:11px;font-weight:600;">Видео</div>
+                <div style="background:#f5f5f5;color:#6b7280;border-radius:6px;padding:5px 10px;font-size:11px;">Аудио</div>
+              </div>
+            </div>
+            <div>
+              <div style="font-size:10px;font-weight:600;color:#374151;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;">Качество</div>
+              <div style="display:flex;gap:4px;">
+                <div style="background:#111;color:#fff;border-radius:6px;padding:5px 8px;font-size:11px;font-weight:600;">1080p</div>
+                <div style="background:#f5f5f5;color:#6b7280;border-radius:6px;padding:5px 8px;font-size:11px;">720p</div>
+                <div style="background:#f5f5f5;color:#6b7280;border-radius:6px;padding:5px 8px;font-size:11px;">480p</div>
+              </div>
+            </div>
+          </div>
+          <div style="background:#f5f5f5;border-radius:8px;padding:9px 14px;font-size:11px;color:#6b7280;display:flex;align-items:center;gap:6px;">
+            <span>📁</span><span>~/Downloads</span>
+            <span style="margin-left:auto;color:#3b82f6;font-size:10px;font-weight:600;">Изменить</span>
+          </div>
+          <div style="background:#111;color:#fff;border-radius:8px;padding:10px;text-align:center;font-size:12px;font-weight:600;">Скачать</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Приложение с шапкой</h3>
+      <p>Тонкий top-bar с названием приложения и версией. Тело — вертикальный поток секций. Контролы разбиты по меткам «Формат» и «Качество». Чуть просторнее, ~580×560px.</p>
+    </div>
+  </div>
+
+  <!-- Option C -->
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#ffffff;border-radius:12px;padding:0;font-family:Inter,sans-serif;min-height:260px;overflow:hidden;border:1px solid #e5e7eb;">
+        <!-- Top area - URL prominent -->
+        <div style="background:#f8f9fa;padding:20px 20px 16px;border-bottom:1px solid #f3f4f6;">
+          <div style="font-size:16px;font-weight:600;color:#111;margin-bottom:12px;letter-spacing:-0.3px;">Вставь ссылку</div>
+          <div style="background:#fff;border:1px solid #e5e7eb;border-radius:8px;padding:10px 14px;font-size:12px;color:#898989;">https://youtube.com/watch?v=...</div>
+        </div>
+        <!-- Bottom area - settings -->
+        <div style="padding:16px 20px;display:flex;flex-direction:column;gap:12px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-size:11px;font-weight:600;color:#374151;">Формат</span>
+            <div style="background:#f5f5f5;border-radius:9999px;padding:3px;display:flex;gap:2px;">
+              <div style="background:#111;color:#fff;border-radius:9999px;padding:4px 12px;font-size:10px;font-weight:600;">Видео</div>
+              <div style="color:#6b7280;padding:4px 12px;font-size:10px;">Аудио</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-size:11px;font-weight:600;color:#374151;">Качество</span>
+            <div style="background:#f5f5f5;border-radius:9999px;padding:3px;display:flex;gap:2px;">
+              <div style="background:#111;color:#fff;border-radius:9999px;padding:4px 10px;font-size:10px;font-weight:600;">1080p</div>
+              <div style="color:#6b7280;padding:4px 10px;font-size:10px;">720p</div>
+              <div style="color:#6b7280;padding:4px 10px;font-size:10px;">480p</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-size:11px;font-weight:600;color:#374151;">Папка</span>
+            <span style="font-size:11px;color:#3b82f6;font-weight:600;">~/Downloads ›</span>
+          </div>
+          <div style="background:#111;color:#fff;border-radius:8px;padding:9px;text-align:center;font-size:12px;font-weight:600;">Скачать</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Двухзонный макет с pill-переключателями</h3>
+      <p>URL занимает верхнюю зону на сером фоне (#f8f9fa), настройки — нижнюю. Переключатели формата/качества оформлены как nav-pill-group из дизайн-системы. Самый «фирменный» вариант. ~520×480px.</p>
+    </div>
+  </div>
+
+</div>
