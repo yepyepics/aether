@@ -26,7 +26,7 @@ export function MainScreen() {
   const [quality, setQuality] = createSignal<Quality>("1080");
   const [outputDir, setOutputDir] = createSignal("~/Downloads");
   const [isDownloading, setIsDownloading] = createSignal(false);
-  const [progress] = createSignal({ pct: 42, speed: "2.50 MiB/s", eta: "00:38" });
+  const [progress] = createSignal({ pct: 0, speed: "", eta: "" });
 
   const startDownload = () => setIsDownloading(true);
   const cancelDownload = () => {
