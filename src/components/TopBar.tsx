@@ -9,7 +9,7 @@ export function TopBar(props: Props) {
       style={{ padding: "0 20px", height: "48px" }}
     >
       <span
-        class="font-semibold text-ink"
+        class="font-sans font-semibold text-ink"
         style={{ "font-size": "14px", "letter-spacing": "-0.3px" }}
       >
         yt-dlgui

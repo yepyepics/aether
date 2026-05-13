@@ -7,7 +7,7 @@ describe("TopBar", () => {
     expect(getByText("yt-dlgui")).toBeInTheDocument();
   });
 
-  it("renders version badge", () => {
+  it("renders custom version prop", () => {
     const { getByText } = render(() => <TopBar version="v1.2.3" />);
     expect(getByText("v1.2.3")).toBeInTheDocument();
   });
