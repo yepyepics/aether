@@ -8,10 +8,11 @@ export function DownloadButton(props: Props) {
     <button
       onClick={props.onClick}
       disabled={props.disabled}
-      class="w-full font-sans font-semibold rounded-md cursor-pointer disabled:cursor-not-allowed"
+      class="w-full font-sans font-semibold cursor-pointer disabled:cursor-not-allowed"
       style={{
         height: "40px",
         "font-size": "14px",
+        "border-radius": "8px",
         background: props.disabled ? "#e5e7eb" : "#111111",
         color: props.disabled ? "#6b7280" : "#ffffff",
         border: "none",

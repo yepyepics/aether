@@ -40,8 +40,8 @@ export function ProgressCard(props: Props) {
       </div>
       <button
         onClick={props.onCancel}
-        class="w-full font-sans font-semibold rounded-md cursor-pointer bg-canvas text-ink border border-hairline"
-        style={{ height: "40px", "font-size": "14px" }}
+        class="w-full font-sans font-semibold cursor-pointer bg-canvas text-ink border border-hairline"
+        style={{ height: "40px", "font-size": "14px", "border-radius": "8px" }}
       >
         Отменить
       </button>
