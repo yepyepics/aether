@@ -5,7 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 // @ts-expect-error process is a nodejs global
 const host = process.env.TAURI_DEV_HOST;
 
-export default defineConfig(async () => ({
+export default defineConfig(() => ({
   plugins: [solid(), tailwindcss()],
   clearScreen: false,
   server: {
@@ -22,5 +22,12 @@ export default defineConfig(async () => ({
     globals: true,
     setupFiles: ["./src/test-setup.ts"],
     transformMode: { web: [/\.[jt]sx?$/] },
+    deps: {
+      optimizer: {
+        web: {
+          include: ["solid-js"],
+        },
+      },
+    },
   },
 }));
