@@ -26,4 +26,12 @@ describe("UrlInput", () => {
     ));
     expect(getByText("Вставить")).toBeInTheDocument();
   });
+
+  it("disables input and button when disabled prop is true", () => {
+    const { getByPlaceholderText, getByText } = render(() => (
+      <UrlInput value="" onChange={() => {}} disabled />
+    ));
+    expect(getByPlaceholderText("Вставьте ссылку на видео…")).toBeDisabled();
+    expect(getByText("Вставить").closest("button")).toBeDisabled();
+  });
 });

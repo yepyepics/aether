@@ -23,8 +23,8 @@ export function UrlInput(props: Props) {
         Ссылка
       </div>
       <div
-        class="flex items-center bg-canvas border border-hairline rounded-md"
-        style={{ padding: "0 12px", height: "40px" }}
+        class="flex items-center bg-canvas border border-hairline"
+        style={{ padding: "0 12px", height: "40px", "border-radius": "8px" }}
       >
         <input
           type="text"
@@ -32,8 +32,8 @@ export function UrlInput(props: Props) {
           onInput={(e) => props.onChange(e.currentTarget.value)}
           disabled={props.disabled}
           placeholder="Вставьте ссылку на видео…"
-          class="flex-1 font-sans bg-transparent outline-none min-w-0"
-          style={{ "font-size": "13px", color: props.value ? "#111111" : "#898989" }}
+          class="flex-1 font-sans bg-transparent outline-none min-w-0 text-ink"
+          style={{ "font-size": "13px" }}
         />
         <button
           onClick={paste}
