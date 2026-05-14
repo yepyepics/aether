@@ -2,3 +2,6 @@ node_modules
 dist
 .superpowers/
 
+# yt-dlp sidecar binaries (downloaded separately, not committed)
+src-tauri/binaries/yt-dlp-*
+
