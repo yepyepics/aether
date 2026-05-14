@@ -30,6 +30,9 @@ export const ru = {
   queueFew: "загрузки в очереди",
   queueMany: "загрузок в очереди",
   engineUpdateLabel: "Обновление движка…",
+  downloadErrorMissingFfmpegForVideoFormat:
+    "Для объединения видео и аудио нужен ffmpeg. Установите ffmpeg и повторите загрузку.",
+  downloadErrorGeneric: "Не удалось начать загрузку. Проверьте настройки и попробуйте снова.",
   settingsOpenAriaLabel: "Открыть настройки",
   backToHomeLabel: "← Назад",
   backToHomeAriaLabel: "Вернуться на главный экран",
@@ -41,7 +44,7 @@ export const ru = {
   languageOptionRu: "Русский",
   languageOptionEn: "English",
   defaultVideoFormatLabel: "Дефолтный формат видео",
-  defaultVideoFormatHint: "Контейнер для объединённого видео и аудио после загрузки.",
+  defaultVideoFormatHint: "Контейнер для итогового файла после объединения видео и аудио. Для видео-загрузок нужен ffmpeg.",
   defaultAudioFormatLabel: "Дефолтный формат аудио",
   defaultAudioFormatHint: "Формат, в который будет конвертировано аудио при извлечении.",
 } as const;

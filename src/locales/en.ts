@@ -31,6 +31,9 @@ export const en: LocaleDictionary = {
   queueFew: "downloads in queue",
   queueMany: "downloads in queue",
   engineUpdateLabel: "Updating engine...",
+  downloadErrorMissingFfmpegForVideoFormat:
+    "ffmpeg is required to merge video and audio. Install ffmpeg and try again.",
+  downloadErrorGeneric: "Couldn't start the download. Check your settings and try again.",
   settingsOpenAriaLabel: "Open settings",
   backToHomeLabel: "← Back",
   backToHomeAriaLabel: "Return to main screen",
@@ -41,7 +44,7 @@ export const en: LocaleDictionary = {
   languageOptionRu: "Русский",
   languageOptionEn: "English",
   defaultVideoFormatLabel: "Default video format",
-  defaultVideoFormatHint: "Container used after merging downloaded video and audio.",
+  defaultVideoFormatHint: "Container used for the final file after merging downloaded video and audio. ffmpeg is required for video downloads.",
   defaultAudioFormatLabel: "Default audio format",
   defaultAudioFormatHint: "Output format used when extracting audio.",
 };

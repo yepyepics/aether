@@ -1,5 +1,6 @@
 import { Show, onMount } from "solid-js";
 import { MainScreen } from "./components/MainScreen";
+import { ChangelogModal } from "./components/ChangelogModal";
 import { SettingsScreen } from "./components/SettingsScreen";
 import { initializeI18n } from "./store/i18n";
 import { currentView } from "./stores/navigationStore";
@@ -25,6 +26,8 @@ function App() {
             <SettingsScreen />
           </div>
         </Show>
+
+        <ChangelogModal />
       </div>
     </main>
   );

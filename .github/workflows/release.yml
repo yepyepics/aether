@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - "v*"
+  workflow_dispatch:
 
 jobs:
   build:
@@ -44,6 +45,48 @@ jobs:
             libappindicator3-dev \
             librsvg2-dev \
             patchelf
+
+      - name: Prepare ffmpeg sidecar directory
+        run: mkdir -p src-tauri/bin
+
+      - name: Download ffmpeg for Windows
+        if: matrix.os == 'windows-latest'
+        shell: pwsh
+        run: |
+          Invoke-WebRequest -Uri "https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-essentials.zip" -OutFile "ffmpeg-win64.zip"
+          Expand-Archive -Path "ffmpeg-win64.zip" -DestinationPath "ffmpeg-win64"
+          $ffmpeg = Get-ChildItem -Path "ffmpeg-win64" -Recurse -Filter "ffmpeg.exe" | Select-Object -First 1
+          if (-not $ffmpeg) {
+            throw "ffmpeg.exe was not found in the downloaded Windows archive."
+          }
+          Copy-Item $ffmpeg.FullName "src-tauri/bin/ffmpeg-x86_64-pc-windows-msvc.exe"
+
+      - name: Download ffmpeg for macOS
+        if: matrix.os == 'macos-latest'
+        shell: bash
+        run: |
+          curl -L "https://evermeet.cx/ffmpeg/getrelease/zip" -o ffmpeg-macos-x64.zip
+          unzip -j ffmpeg-macos-x64.zip ffmpeg -d src-tauri/bin
+          mv src-tauri/bin/ffmpeg src-tauri/bin/ffmpeg-x86_64-apple-darwin
+          chmod +x src-tauri/bin/ffmpeg-x86_64-apple-darwin
+
+          curl -L "https://github.com/eugeneware/ffmpeg-static/releases/latest/download/ffmpeg-darwin-arm64.gz" -o ffmpeg-darwin-arm64.gz
+          gunzip -c ffmpeg-darwin-arm64.gz > src-tauri/bin/ffmpeg-aarch64-apple-darwin
+          chmod +x src-tauri/bin/ffmpeg-aarch64-apple-darwin
+
+      - name: Download ffmpeg for Linux
+        if: matrix.os == 'ubuntu-22.04'
+        shell: bash
+        run: |
+          curl -L "https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz" -o ffmpeg-linux-amd64.tar.xz
+          tar -xf ffmpeg-linux-amd64.tar.xz
+          ffmpeg_dir="$(find . -maxdepth 1 -type d -name 'ffmpeg-*-amd64-static' | head -n 1)"
+          if [ -z "$ffmpeg_dir" ]; then
+            echo "Unable to locate extracted ffmpeg directory" >&2
+            exit 1
+          fi
+          cp "$ffmpeg_dir/ffmpeg" src-tauri/bin/ffmpeg-x86_64-unknown-linux-gnu
+          chmod +x src-tauri/bin/ffmpeg-x86_64-unknown-linux-gnu
 
       - name: Build and draft release
         uses: tauri-apps/tauri-action@v0

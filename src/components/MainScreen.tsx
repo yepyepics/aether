@@ -49,6 +49,18 @@ const fileLabelFromPath = (rawValue: string, fallbackLabel: string) => {
   return fileName || normalized || fallbackLabel;
 };
 
+const replaceFileExtension = (fileName: string, nextExtension: string) => {
+  const trimmed = fileName.trim();
+  if (!trimmed) return trimmed;
+
+  const lastDotIndex = trimmed.lastIndexOf(".");
+  if (lastDotIndex <= 0) {
+    return `${trimmed}.${nextExtension}`;
+  }
+
+  return `${trimmed.slice(0, lastDotIndex)}.${nextExtension}`;
+};
+
 const fallbackLabelFromUrl = (rawUrl: string, fallbackLabel: string) => {
   const trimmed = rawUrl.trim();
   if (!trimmed) return fallbackLabel;
@@ -68,6 +80,20 @@ const fallbackLabelFromUrl = (rawUrl: string, fallbackLabel: string) => {
 };
 
 export function MainScreen() {
+  const mapDownloadError = (error: unknown) => {
+    const message = typeof error === "string"
+      ? error
+      : error instanceof Error
+        ? error.message
+        : "";
+
+    if (message.includes("missing_ffmpeg_for_video_format")) {
+      return t("downloadErrorMissingFfmpegForVideoFormat");
+    }
+
+    return t("downloadErrorGeneric");
+  };
+
   const formatOptions = () => [
     { value: "video" as const, label: t("formatVideo") },
     { value: "audio" as const, label: t("formatAudio") },
@@ -83,6 +109,7 @@ export function MainScreen() {
   const [downloadQueue, setDownloadQueue] = createSignal<QueueItem[]>([]);
   const [isSponsorBlockEnabled, setIsSponsorBlockEnabled] = createSignal(false);
   const [isEcoMode, setIsEcoMode] = createSignal(false);
+  const [downloadError, setDownloadError] = createSignal("");
 
   let unlistenDownloadStdout: (() => void) | undefined;
   let unlistenDownloadDone: (() => void) | undefined;
@@ -118,19 +145,26 @@ export function MainScreen() {
     const dlEcoMode = item?.ecoMode ?? isEcoMode();
 
     clearCompletionTimer();
+    setDownloadError("");
     setIsDownloading(true);
     setDownloadPhase("downloading");
     setCurrentDownloadLabel(fallbackLabelFromUrl(dlUrl, t("currentFileLabel")));
     setProgress({ pct: 0, speed: "", eta: "" });
+    const expectedOutputExtension = dlFormat === "audio" ? defaultAudioFormat() : defaultVideoFormat();
 
     unlistenDownloadStdout = await listen<{ line: string }>("ytdlp-stdout", (e) => {
-      const labelMatch =
+      const destinationMatch =
         e.payload.line.match(/\[download\]\s+Destination:\s+(.+)$/) ??
-        e.payload.line.match(/\[ExtractAudio\]\s+Destination:\s+(.+)$/) ??
-        e.payload.line.match(/\[Merger\]\s+Merging formats into\s+"(.+)"$/);
+        e.payload.line.match(/\[ExtractAudio\]\s+Destination:\s+(.+)$/);
+      const mergeMatch = e.payload.line.match(/\[Merger\]\s+Merging formats into\s+"(.+)"$/);
 
-      if (labelMatch?.[1]) {
-        setCurrentDownloadLabel(fileLabelFromPath(labelMatch[1], t("currentFileLabel")));
+      if (destinationMatch?.[1]) {
+        const label = fileLabelFromPath(destinationMatch[1], t("currentFileLabel"));
+        const normalizedLabel =
+          dlFormat === "video" ? replaceFileExtension(label, expectedOutputExtension) : label;
+        setCurrentDownloadLabel(normalizedLabel);
+      } else if (mergeMatch?.[1]) {
+        setCurrentDownloadLabel(fileLabelFromPath(mergeMatch[1], t("currentFileLabel")));
       }
 
       const m = e.payload.line.match(
@@ -169,10 +203,11 @@ export function MainScreen() {
       ecoMode: dlEcoMode,
       videoFormat: defaultVideoFormat(),
       audioFormat: defaultAudioFormat(),
-    }).catch(() => {
+    }).catch((error) => {
       setIsDownloading(false);
       resetDownloadUi();
       cleanupDownload();
+      setDownloadError(mapDownloadError(error));
     });
   };
 
@@ -337,6 +372,31 @@ export function MainScreen() {
           onChange={setUrl}
           disabled={isDownloading()}
         />
+
+        <Show when={downloadError()}>
+          <div
+            class="glass-surface border border-[rgba(239,68,68,0.18)]"
+            role="alert"
+            style={{
+              padding: "10px 12px",
+              "border-radius": "12px",
+              background: "rgba(254,242,242,0.9)",
+            }}
+          >
+            <p
+              class="font-sans"
+              style={{
+                margin: "0",
+                "font-size": "12px",
+                "line-height": "1.5",
+                color: "#991b1b",
+                "font-weight": "500",
+              }}
+            >
+              {downloadError()}
+            </p>
+          </div>
+        </Show>
 
         <div
           class="transition-opacity duration-150 ease-apple"

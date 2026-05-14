@@ -72,6 +72,17 @@ public/       Static assets
 pnpm install
 ```
 
+### Prepare binaries for local development
+
+- Put the platform-specific `ffmpeg` sidecar into `src-tauri/bin/` before running `pnpm tauri dev`.
+- Use the Tauri naming convention for your platform:
+  - macOS Intel: `src-tauri/bin/ffmpeg-x86_64-apple-darwin`
+  - macOS Apple Silicon: `src-tauri/bin/ffmpeg-aarch64-apple-darwin`
+  - Linux x64: `src-tauri/bin/ffmpeg-x86_64-unknown-linux-gnu`
+  - Windows x64: `src-tauri/bin/ffmpeg-x86_64-pc-windows-msvc.exe`
+- If `ffmpeg` is already installed globally, the Tauri build script will auto-copy it from your system `PATH` into `src-tauri/bin/` for local builds.
+- If the local sidecar is missing, the Rust backend falls back to a globally installed `ffmpeg` from your system `PATH`.
+
 ### Start the desktop app
 
 ```bash

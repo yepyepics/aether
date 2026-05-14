@@ -22,3 +22,4 @@ Thumbs.db
 
 # yt-dlp sidecar binaries (downloaded separately, not committed)
 src-tauri/binaries/yt-dlp-*
+src-tauri/bin/ffmpeg-*
