@@ -5,10 +5,6 @@
 </p>
 
 <p align="center">
-  <img src="src/assets/logo.svg" alt="Aether logo" width="220" />
-</p>
-
-<p align="center">
   <strong>A polished desktop GUI for yt-dlp, built for speed, clarity, and a smooth download workflow.</strong>
 </p>
 
