@@ -1,12 +1,11 @@
 import { createSignal } from "solid-js";
 import { en } from "../locales/en";
-import { ru } from "../locales/ru";
+import { ru, type LocaleDictionary, type TranslationKey } from "../locales/ru";
 
 export type Locale = "ru" | "en";
-export type TranslationKey = keyof typeof ru;
 
 const LANGUAGE_STORAGE_KEY = "app_lang";
-const dictionaries = { ru, en } as const;
+const dictionaries: Record<Locale, LocaleDictionary> = { ru, en };
 
 function resolveLocale(language: string | undefined): Locale {
   return language?.toLowerCase().startsWith("ru") ? "ru" : "en";

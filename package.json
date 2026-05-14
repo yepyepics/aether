@@ -8,6 +8,7 @@
     "dev": "vite",
     "build": "vite build",
     "serve": "vite preview",
+    "lint": "tsc --noEmit && cargo fmt --manifest-path src-tauri/Cargo.toml --all --check",
     "tauri": "tauri",
     "test": "vitest run",
     "test:watch": "vitest"

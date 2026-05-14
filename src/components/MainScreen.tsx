@@ -44,7 +44,8 @@ interface QueueItem {
 
 const fileLabelFromPath = (rawValue: string, fallbackLabel: string) => {
   const normalized = rawValue.trim().replace(/^"+|"+$/g, "");
-  const fileName = normalized.split(/[\\/]/).filter(Boolean).at(-1)?.trim();
+  const segments = normalized.split(/[\\/]/).filter(Boolean);
+  const fileName = segments[segments.length - 1]?.trim();
   return fileName || normalized || fallbackLabel;
 };
 
@@ -58,7 +59,8 @@ const fallbackLabelFromUrl = (rawUrl: string, fallbackLabel: string) => {
     const videoId = parsed.searchParams.get("v");
     if (videoId) return `${host}/${videoId}`;
 
-    const lastSegment = parsed.pathname.split("/").filter(Boolean).at(-1);
+    const pathSegments = parsed.pathname.split("/").filter(Boolean);
+    const lastSegment = pathSegments[pathSegments.length - 1];
     return lastSegment ? decodeURIComponent(lastSegment) : host;
   } catch {
     return trimmed.replace(/^https?:\/\//, "");

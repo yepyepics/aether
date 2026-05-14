@@ -46,4 +46,5 @@ export const ru = {
   defaultAudioFormatHint: "Формат, в который будет конвертировано аудио при извлечении.",
 } as const;
 
-export type LocaleDictionary = typeof ru;
+export type TranslationKey = keyof typeof ru;
+export type LocaleDictionary = Record<TranslationKey, string>;

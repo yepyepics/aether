@@ -17,7 +17,7 @@ export function DownloadButton(props: Props) {
         "font-size": "14px",
         background: props.disabled ? "#e5e7eb" : "#111111",
         color: props.disabled ? "#6b7280" : "#ffffff",
-        borderColor: props.disabled ? "#e5e7eb" : "#111111",
+        "border-color": props.disabled ? "#e5e7eb" : "#111111",
       }}
     >
       {t("btnDownload")}
