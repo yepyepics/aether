@@ -2,6 +2,9 @@ node_modules/
 dist/
 .pnpm-store/
 .superpowers/
+.vscode/
+docs/
+CLAUDE.MD
 
 # Environment files
 .env
@@ -12,7 +15,6 @@ target/
 
 # Tauri
 src-tauri/target/
-src-tauri/tauri.conf.json
 
 # System files
 .DS_Store
