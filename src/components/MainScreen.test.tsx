@@ -46,4 +46,30 @@ describe("MainScreen", () => {
     expect(queryByText("Загрузка…")).not.toBeInTheDocument();
     expect(getByRole("button", { name: "Скачать" })).toBeInTheDocument();
   });
+
+  it("renders SponsorBlock toggle unchecked by default", () => {
+    const { getByRole } = render(() => <MainScreen />);
+    const toggle = getByRole("switch", { name: /вырезать/i });
+    expect(toggle).toBeInTheDocument();
+    expect(toggle).toHaveAttribute("aria-checked", "false");
+  });
+
+  it("toggles SponsorBlock on click", () => {
+    const { getByRole } = render(() => <MainScreen />);
+    const toggle = getByRole("switch", { name: /вырезать/i });
+    fireEvent.click(toggle);
+    expect(toggle).toHaveAttribute("aria-checked", "true");
+    fireEvent.click(toggle);
+    expect(toggle).toHaveAttribute("aria-checked", "false");
+  });
+
+  it("SponsorBlock toggle is disabled while downloading", () => {
+    const { getByPlaceholderText, getByRole } = render(() => <MainScreen />);
+    fireEvent.input(getByPlaceholderText("Вставьте ссылку на видео…"), {
+      target: { value: "https://youtube.com/watch?v=test" },
+    });
+    fireEvent.click(getByRole("button", { name: "Скачать" }));
+    const toggle = getByRole("switch", { name: /вырезать/i });
+    expect(toggle).toBeDisabled();
+  });
 });
