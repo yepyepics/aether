@@ -1,7 +1,7 @@
 use std::path::PathBuf;
 use tauri::{AppHandle, Emitter};
-use tauri_plugin_shell::ShellExt;
 use tauri_plugin_shell::process::CommandEvent;
+use tauri_plugin_shell::ShellExt;
 
 mod updater;
 
@@ -26,7 +26,10 @@ async fn start_download(
     output_dir: String,
     format: String,  // "video" | "audio"
     quality: String, // "1080" | "720" | "480"
+    eco_mode: bool,
     sponsorblock: bool,
+    video_format: String,
+    audio_format: String,
 ) -> Result<(), String> {
     let mut args: Vec<String> = Vec::new();
 
@@ -34,7 +37,7 @@ async fn start_download(
         args.extend([
             "-x".into(),
             "--audio-format".into(),
-            "mp3".into(),
+            audio_format,
             "--audio-quality".into(),
             "0".into(),
         ]);
@@ -50,12 +53,17 @@ async fn start_download(
             height, height
         ));
         args.push("--merge-output-format".into());
-        args.push("mp4".into());
+        args.push(video_format);
     }
 
     if sponsorblock {
         args.push("--sponsorblock-remove".into());
         args.push("sponsor,intro,outro,selfpromo,interaction".into());
+    }
+
+    if eco_mode {
+        args.push("--limit-rate".into());
+        args.push("5M".into());
     }
 
     args.extend([
@@ -139,7 +147,6 @@ async fn run_local(app: AppHandle, bin: PathBuf, args: Vec<String>) -> Result<()
 
     Ok(())
 }
-
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()

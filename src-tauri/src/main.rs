@@ -2,5 +2,5 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 fn main() {
-    yt_dlgui_lib::run()
+    aether_lib::run()
 }

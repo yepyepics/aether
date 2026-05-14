@@ -1,4 +1,4 @@
-# MVP UI Design — yt-dlgui Main Screen
+# MVP UI Design — Aether Main Screen
 
 ## Overview
 
@@ -14,7 +14,7 @@ A white card (`border: 1px solid #e5e7eb`, `border-radius: 12px`, `box-shadow: 0
 
 ### Top Bar
 - Height: 48px, `border-bottom: 1px solid #f3f4f6`, white background.
-- Left: app name "yt-dlgui" — `title-sm` (Inter 14px/600, `#111111`, `letter-spacing: -0.3px`).
+- Left: app name "Aether" — `title-sm` (Inter 14px/600, `#111111`, `letter-spacing: -0.3px`).
 - Right: version badge (`badge-pill` style: `#f5f5f5` bg, `#6b7280` text, `border-radius: 9999px`, `font-size: 12px`) + settings icon (⚙, `#6b7280`).
 
 ---

@@ -10,21 +10,22 @@ type Props<T extends string> = {
 export function PillGroup<T extends string>(props: Props<T>) {
   return (
     <div
-      class="inline-flex rounded-pill"
-      style={{ background: "#f8f9fa", padding: "4px" }}
+      class="glass-surface inline-flex rounded-pill p-1"
     >
       {props.options.map((opt) => (
         <button
+          type="button"
           onClick={() => !props.disabled && props.onChange(opt.value)}
           disabled={props.disabled}
-          class="font-sans rounded-pill cursor-pointer disabled:cursor-not-allowed"
+          class="font-sans rounded-pill cursor-pointer transition-colors duration-150 ease-apple disabled:cursor-not-allowed"
           style={{
-            "font-size": "12px",
-            padding: "5px 14px",
+            "font-size": "13px",
+            padding: "7px 16px",
             "font-weight": props.value === opt.value ? "600" : "500",
             background: props.value === opt.value ? "#111111" : "transparent",
             color: props.value === opt.value ? "#ffffff" : "#6b7280",
             border: "none",
+            "box-shadow": "none",
           }}
         >
           {opt.label}

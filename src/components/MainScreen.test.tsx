@@ -1,12 +1,27 @@
 import { render, fireEvent } from "@solidjs/testing-library";
-import { vi } from "vitest";
+import { beforeEach, vi } from "vitest";
 import { invoke } from "@tauri-apps/api/core";
 import { MainScreen } from "./MainScreen";
+import { currentView, resetNavigationForTests } from "../stores/navigationStore";
+import { resetPreferencesForTests } from "../stores/preferencesStore";
 
 describe("MainScreen", () => {
+  beforeEach(() => {
+    localStorage.clear();
+    resetNavigationForTests();
+    resetPreferencesForTests();
+    vi.mocked(invoke).mockClear();
+  });
+
   it("renders URL input", () => {
     const { getByPlaceholderText } = render(() => <MainScreen />);
     expect(getByPlaceholderText("Вставьте ссылку на видео…")).toBeInTheDocument();
+  });
+
+  it("opens settings screen from header button", () => {
+    const { getByRole } = render(() => <MainScreen />);
+    fireEvent.click(getByRole("button", { name: "Открыть настройки" }));
+    expect(currentView()).toBe("settings");
   });
 
   it("Download button is disabled when URL is empty", () => {
@@ -75,10 +90,30 @@ describe("MainScreen", () => {
     expect(toggle).toBeDisabled();
   });
 
-  it("passes sponsorblock: true to invoke when toggle is enabled", async () => {
-    const { getByPlaceholderText, getByRole } = render(() => <MainScreen />);
-    const toggle = getByRole("switch", { name: /вырезать/i });
+  it("renders Eco toggle inactive by default", () => {
+    const { getByRole } = render(() => <MainScreen />);
+    const toggle = getByRole("button", { name: "Eco mode" });
+    expect(toggle).toBeInTheDocument();
+    expect(toggle).toHaveAttribute("aria-pressed", "false");
+    expect(toggle).toHaveAttribute("title", "Eco-mode (лимит 5 МБ/с)");
+  });
+
+  it("toggles Eco mode on click", () => {
+    const { getByRole } = render(() => <MainScreen />);
+    const toggle = getByRole("button", { name: "Eco mode" });
     fireEvent.click(toggle);
+    expect(toggle).toHaveAttribute("aria-pressed", "true");
+    fireEvent.click(toggle);
+    expect(toggle).toHaveAttribute("aria-pressed", "false");
+  });
+
+  it("passes sponsorblock and saved formats to invoke", async () => {
+    localStorage.setItem("aether.defaultVideoFormat", "webm");
+    localStorage.setItem("aether.defaultAudioFormat", "wav");
+
+    const { getByPlaceholderText, getByRole } = render(() => <MainScreen />);
+    fireEvent.click(getByRole("switch", { name: /вырезать/i }));
+    fireEvent.click(getByRole("button", { name: "Eco mode" }));
     fireEvent.input(getByPlaceholderText("Вставьте ссылку на видео…"), {
       target: { value: "https://youtube.com/watch?v=test" },
     });
@@ -87,6 +122,9 @@ describe("MainScreen", () => {
     await new Promise(r => setTimeout(r, 0));
     expect(invoke).toHaveBeenCalledWith("start_download", expect.objectContaining({
       sponsorblock: true,
+      ecoMode: true,
+      videoFormat: "webm",
+      audioFormat: "wav",
     }));
   });
 });

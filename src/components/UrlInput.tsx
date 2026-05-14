@@ -1,3 +1,5 @@
+import { t } from "../store/i18n";
+
 type Props = {
   value: string;
   onChange: (v: string) => void;
@@ -17,32 +19,34 @@ export function UrlInput(props: Props) {
   return (
     <div>
       <div
-        class="font-sans font-semibold text-body uppercase"
-        style={{ "font-size": "11px", "letter-spacing": "0.4px", "margin-bottom": "6px" }}
+        class="font-sans font-semibold text-body"
+        style={{ "font-size": "12px", "margin-bottom": "8px" }}
       >
-        Ссылка
+        {t("inputLabel")}
       </div>
       <div
-        class="flex items-center bg-canvas border border-hairline"
-        style={{ padding: "0 12px", height: "40px", "border-radius": "8px" }}
+        class="glass-control url-input-shell rounded-xl transition-colors duration-150 ease-apple focus-within:bg-canvas"
       >
         <input
           type="text"
           value={props.value}
           onInput={(e) => props.onChange(e.currentTarget.value)}
           disabled={props.disabled}
-          placeholder="Вставьте ссылку на видео…"
+          placeholder={t("inputPlaceholder")}
           class="flex-1 font-sans bg-transparent outline-none min-w-0 text-ink"
-          style={{ "font-size": "13px" }}
+          style={{ "font-size": "14px" }}
         />
-        <button
-          onClick={paste}
-          disabled={props.disabled}
-          class="font-sans font-semibold text-ink border-l border-hairline cursor-pointer disabled:opacity-50"
-          style={{ "font-size": "12px", "padding-left": "10px", "margin-left": "8px" }}
-        >
-          Вставить
-        </button>
+        <div class="url-input-actions">
+          <div class="url-input-divider" />
+          <button
+            type="button"
+            onClick={paste}
+            disabled={props.disabled}
+            class="url-input-action"
+          >
+            {t("btnPaste")}
+          </button>
+        </div>
       </div>
     </div>
   );

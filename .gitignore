@@ -1,7 +1,22 @@
-node_modules
-dist
+node_modules/
+dist/
+.pnpm-store/
 .superpowers/
+
+# Environment files
+.env
+.env.*
+
+# Rust
+target/
+
+# Tauri
+src-tauri/target/
+src-tauri/tauri.conf.json
+
+# System files
+.DS_Store
+Thumbs.db
 
 # yt-dlp sidecar binaries (downloaded separately, not committed)
 src-tauri/binaries/yt-dlp-*
-
