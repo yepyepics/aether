@@ -1,4 +1,6 @@
 import { render, fireEvent } from "@solidjs/testing-library";
+import { vi } from "vitest";
+import { invoke } from "@tauri-apps/api/core";
 import { MainScreen } from "./MainScreen";
 
 describe("MainScreen", () => {
@@ -71,5 +73,20 @@ describe("MainScreen", () => {
     fireEvent.click(getByRole("button", { name: "Скачать" }));
     const toggle = getByRole("switch", { name: /вырезать/i });
     expect(toggle).toBeDisabled();
+  });
+
+  it("passes sponsorblock: true to invoke when toggle is enabled", async () => {
+    const { getByPlaceholderText, getByRole } = render(() => <MainScreen />);
+    const toggle = getByRole("switch", { name: /вырезать/i });
+    fireEvent.click(toggle);
+    fireEvent.input(getByPlaceholderText("Вставьте ссылку на видео…"), {
+      target: { value: "https://youtube.com/watch?v=test" },
+    });
+    fireEvent.click(getByRole("button", { name: "Скачать" }));
+    // Wait for async invoke call to complete
+    await new Promise(r => setTimeout(r, 0));
+    expect(invoke).toHaveBeenCalledWith("start_download", expect.objectContaining({
+      sponsorblock: true,
+    }));
   });
 });
