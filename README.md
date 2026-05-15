@@ -1,11 +1,19 @@
 # Aether
 
 <p align="center">
-  <img src="src-tauri/icons/128x128.png" alt="Aether app icon" width="96" height="96" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&height=220&color=0:08111f,50:1d4ed8,100:22d3ee&text=Aether&fontColor=ffffff&fontAlignY=38&desc=Elegant%20desktop%20downloads%20powered%20by%20yt-dlp&descAlignY=58&animation=fadeIn" alt="Aether header banner" />
 </p>
 
 <p align="center">
-  <strong>A polished desktop GUI for yt-dlp, built for speed, clarity, and a smooth download workflow.</strong>
+  <img src="app-icon.png" alt="Aether app icon" width="112" height="112" />
+</p>
+
+<p align="center">
+  <strong>A polished desktop GUI for yt-dlp with a faster workflow, cleaner controls, and a more premium feel than the command line.</strong>
+</p>
+
+<p align="center">
+  <img src="https://readme-typing-svg.demolab.com?font=IBM+Plex+Sans&weight=500&size=20&duration=4600&pause=1600&color=9FD7FF&center=true&vCenter=true&width=920&lines=Paste+a+link.+Choose+a+format.+Download+cleanly.;SponsorBlock%2C+Eco+Mode%2C+live+progress%2C+and+yt-dlp+updates.;Built+with+Tauri+2%2C+Rust%2C+SolidJS%2C+and+TypeScript." alt="Animated project summary" />
 </p>
 
 <p align="center">
@@ -15,45 +23,66 @@
   <img src="https://img.shields.io/badge/TypeScript-Strict-3178C6?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript" />
 </p>
 
-## Overview
-
-Aether is a desktop-first media downloader that wraps the power of `yt-dlp` in a compact, modern interface. It is designed for people who want the reliability and flexibility of the command line without sacrificing speed, usability, or visual polish.
-
-The app combines a Rust-powered Tauri shell with a lightweight SolidJS frontend, resulting in a fast startup, low overhead, and a workflow that stays focused on one thing: getting downloads done cleanly.
-
-## Highlights
-
-- Download video or extract audio from a single streamlined desktop flow.
-- Choose quality presets quickly with simple, approachable controls.
-- Remove sponsor, intro, outro, self-promo, and interaction segments via SponsorBlock.
-- Enable Eco Mode to cap bandwidth usage for more controlled downloads.
-- Track live progress with percentage, transfer speed, ETA, and current file name.
-- Queue downloads while the embedded `yt-dlp` engine is updating.
-- Set default output formats for both video and audio in the settings screen.
-- Switch between English and Russian with built-in localization support.
-- Receive automatic `yt-dlp` binary updates through the desktop app lifecycle.
+<p align="center">
+  <a href="#why-aether">Why Aether</a> ·
+  <a href="#feature-set">Feature Set</a> ·
+  <a href="#development">Development</a> ·
+  <a href="#contributing">Contributing</a>
+</p>
 
 ## Why Aether
 
-- Professional desktop UX instead of a raw command surface.
-- Lightweight architecture powered by Tauri and Rust.
-- Clear visual hierarchy with minimal friction between paste and download.
-- Practical defaults for everyday media downloading tasks.
+Aether is a desktop-first media downloader that wraps the flexibility of `yt-dlp` in a compact, modern interface. It is built for people who want reliable downloads, approachable controls, and a workflow that feels fast from the first paste to the finished file.
+
+The project combines a Rust-powered Tauri shell with a lightweight SolidJS frontend, giving you low overhead, quick startup, and a UI that stays focused on the download experience instead of fighting it.
+
+## Feature Set
+
+| Area | What you get |
+| --- | --- |
+| Download flow | Download video or extract audio from one streamlined desktop screen. |
+| Quality control | Pick video and audio formats quickly with simple presets and defaults. |
+| Progress visibility | Track percent complete, speed, ETA, and current filename in real time. |
+| SponsorBlock tools | Skip sponsor, intro, outro, self-promo, and interaction segments automatically. |
+| Network control | Enable Eco Mode to reduce bandwidth pressure during longer downloads. |
+| Update story | Keep the embedded `yt-dlp` binary fresh through the app lifecycle. |
+| Localization | Switch between English and Russian with built-in language support. |
+
+## Experience
+
+<table>
+  <tr>
+    <td width="33%">
+      <strong>Desktop-native feel</strong><br />
+      Tauri keeps the app lean while Rust handles the heavier lifting behind the scenes.
+    </td>
+    <td width="33%">
+      <strong>Focused UI</strong><br />
+      Aether trims the command-line noise and leaves you with the choices that matter.
+    </td>
+    <td width="33%">
+      <strong>Practical defaults</strong><br />
+      The common path stays short, while power features remain close when you need them.
+    </td>
+  </tr>
+</table>
 
 ## Tech Stack
 
-- Tauri 2
-- Rust
-- SolidJS
-- TypeScript
-- Tailwind CSS
-- Vitest
+```text
+Desktop shell   Tauri 2
+Backend         Rust
+Frontend        SolidJS
+Language        TypeScript
+Styling         Tailwind CSS
+Testing         Vitest
+```
 
 ## Project Structure
 
 ```text
 src/          SolidJS UI, state, localization, tests
-src-tauri/    Rust backend, updater logic, desktop bundling
+src-tauri/    Rust backend, updater logic, sidecars, desktop bundling
 public/       Static assets
 ```
 
@@ -72,7 +101,7 @@ public/       Static assets
 pnpm install
 ```
 
-### Prepare binaries for local development
+### Prepare local binaries
 
 - Put the platform-specific `ffmpeg` sidecar into `src-tauri/bin/` before running `pnpm tauri dev`.
 - Use the Tauri naming convention for your platform:
@@ -80,10 +109,10 @@ pnpm install
   - macOS Apple Silicon: `src-tauri/bin/ffmpeg-aarch64-apple-darwin`
   - Linux x64: `src-tauri/bin/ffmpeg-x86_64-unknown-linux-gnu`
   - Windows x64: `src-tauri/bin/ffmpeg-x86_64-pc-windows-msvc.exe`
-- If `ffmpeg` is already installed globally, the Tauri build script will auto-copy it from your system `PATH` into `src-tauri/bin/` for local builds.
+- If `ffmpeg` already exists globally, the Tauri build step can copy it from your system `PATH` into `src-tauri/bin/` for local builds.
 - If the local sidecar is missing, the Rust backend falls back to a globally installed `ffmpeg` from your system `PATH`.
 
-### Start the desktop app
+### Start the app
 
 ```bash
 pnpm tauri dev
@@ -108,3 +137,7 @@ Contributions are welcome. For workflow expectations, branch naming, and pull re
 ## License
 
 This project is licensed under the MIT License.
+
+<p align="center">
+  <img src="https://capsule-render.vercel.app/api?type=waving&section=footer&height=120&color=0:08111f,50:1d4ed8,100:22d3ee" alt="Aether footer banner" />
+</p>
