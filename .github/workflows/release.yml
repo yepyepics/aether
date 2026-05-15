@@ -56,6 +56,7 @@ jobs:
             patchelf
 
       - name: Prepare sidecar directories
+        shell: bash
         run: |
           mkdir -p src-tauri/bin
           mkdir -p src-tauri/binaries
@@ -66,8 +67,9 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
-          gh release download --repo yt-dlp/yt-dlp --pattern "yt-dlp.exe" --dir src-tauri/binaries
-          mv src-tauri/binaries/yt-dlp.exe src-tauri/binaries/yt-dlp-x86_64-pc-windows-msvc.exe
+          YTDLP_TAG=$(gh release view --repo yt-dlp/yt-dlp --json tagName -q .tagName)
+          curl -fL "https://github.com/yt-dlp/yt-dlp/releases/download/${YTDLP_TAG}/yt-dlp.exe" \
+            -o src-tauri/binaries/yt-dlp-x86_64-pc-windows-msvc.exe
 
       - name: Download yt-dlp for macOS
         if: matrix.os == 'macos-latest'
@@ -75,10 +77,12 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
-          gh release download --repo yt-dlp/yt-dlp --pattern "yt-dlp_macos" --dir src-tauri/binaries
-          mv src-tauri/binaries/yt-dlp_macos src-tauri/binaries/yt-dlp-x86_64-apple-darwin
+          YTDLP_TAG=$(gh release view --repo yt-dlp/yt-dlp --json tagName -q .tagName)
+          curl -fL "https://github.com/yt-dlp/yt-dlp/releases/download/${YTDLP_TAG}/yt-dlp_macos" \
+            -o src-tauri/binaries/yt-dlp-x86_64-apple-darwin
           chmod +x src-tauri/binaries/yt-dlp-x86_64-apple-darwin
           cp src-tauri/binaries/yt-dlp-x86_64-apple-darwin src-tauri/binaries/yt-dlp-aarch64-apple-darwin
+          chmod +x src-tauri/binaries/yt-dlp-aarch64-apple-darwin
 
       - name: Download yt-dlp for Linux
         if: matrix.os == 'ubuntu-22.04'
@@ -86,8 +90,9 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         shell: bash
         run: |
-          gh release download --repo yt-dlp/yt-dlp --pattern "yt-dlp_linux" --dir src-tauri/binaries
-          mv src-tauri/binaries/yt-dlp_linux src-tauri/binaries/yt-dlp-x86_64-unknown-linux-gnu
+          YTDLP_TAG=$(gh release view --repo yt-dlp/yt-dlp --json tagName -q .tagName)
+          curl -fL "https://github.com/yt-dlp/yt-dlp/releases/download/${YTDLP_TAG}/yt-dlp_linux" \
+            -o src-tauri/binaries/yt-dlp-x86_64-unknown-linux-gnu
           chmod +x src-tauri/binaries/yt-dlp-x86_64-unknown-linux-gnu
 
       - name: Download ffmpeg for Windows
