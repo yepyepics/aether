@@ -57,9 +57,7 @@ jobs:
 
       - name: Prepare sidecar directories
         shell: bash
-        run: |
-          mkdir -p src-tauri/bin
-          mkdir -p src-tauri/binaries
+        run: mkdir -p src-tauri/bin
 
       - name: Download yt-dlp for Windows
         if: matrix.os == 'windows-latest'
@@ -69,7 +67,7 @@ jobs:
         run: |
           YTDLP_TAG=$(gh release view --repo yt-dlp/yt-dlp --json tagName -q .tagName)
           curl -fL "https://github.com/yt-dlp/yt-dlp/releases/download/${YTDLP_TAG}/yt-dlp.exe" \
-            -o src-tauri/binaries/yt-dlp-x86_64-pc-windows-msvc.exe
+            -o src-tauri/bin/yt-dlp-x86_64-pc-windows-msvc.exe
 
       - name: Download yt-dlp for macOS
         if: matrix.os == 'macos-latest'
@@ -79,10 +77,10 @@ jobs:
         run: |
           YTDLP_TAG=$(gh release view --repo yt-dlp/yt-dlp --json tagName -q .tagName)
           curl -fL "https://github.com/yt-dlp/yt-dlp/releases/download/${YTDLP_TAG}/yt-dlp_macos" \
-            -o src-tauri/binaries/yt-dlp-x86_64-apple-darwin
-          chmod +x src-tauri/binaries/yt-dlp-x86_64-apple-darwin
-          cp src-tauri/binaries/yt-dlp-x86_64-apple-darwin src-tauri/binaries/yt-dlp-aarch64-apple-darwin
-          chmod +x src-tauri/binaries/yt-dlp-aarch64-apple-darwin
+            -o src-tauri/bin/yt-dlp-x86_64-apple-darwin
+          chmod +x src-tauri/bin/yt-dlp-x86_64-apple-darwin
+          cp src-tauri/bin/yt-dlp-x86_64-apple-darwin src-tauri/bin/yt-dlp-aarch64-apple-darwin
+          chmod +x src-tauri/bin/yt-dlp-aarch64-apple-darwin
 
       - name: Download yt-dlp for Linux
         if: matrix.os == 'ubuntu-22.04'
@@ -92,8 +90,8 @@ jobs:
         run: |
           YTDLP_TAG=$(gh release view --repo yt-dlp/yt-dlp --json tagName -q .tagName)
           curl -fL "https://github.com/yt-dlp/yt-dlp/releases/download/${YTDLP_TAG}/yt-dlp_linux" \
-            -o src-tauri/binaries/yt-dlp-x86_64-unknown-linux-gnu
-          chmod +x src-tauri/binaries/yt-dlp-x86_64-unknown-linux-gnu
+            -o src-tauri/bin/yt-dlp-x86_64-unknown-linux-gnu
+          chmod +x src-tauri/bin/yt-dlp-x86_64-unknown-linux-gnu
 
       - name: Download ffmpeg for Windows
         if: matrix.os == 'windows-latest'
