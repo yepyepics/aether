@@ -103,7 +103,7 @@ pub async fn check_and_update(app: AppHandle) {
     }
 
     let client = match reqwest::Client::builder()
-        .user_agent("aether/0.0.1-beta")
+        .user_agent("aether/1.0.0-beta")
         .build()
     {
         Ok(c) => c,

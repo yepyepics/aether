@@ -15,7 +15,7 @@ vi.mock("@tauri-apps/api/core", () => ({
 }));
 
 vi.mock("@tauri-apps/api/app", () => ({
-  getVersion: vi.fn().mockResolvedValue("0.0.1-beta"),
+  getVersion: vi.fn().mockResolvedValue("1.0.0-beta"),
 }));
 
 vi.mock("@tauri-apps/plugin-updater", () => ({
@@ -31,7 +31,7 @@ beforeEach(() => {
   localStorage.clear();
   resetI18nForTests();
   resetUpdaterForTests();
-  vi.mocked(getVersion).mockResolvedValue("0.0.1-beta");
+  vi.mocked(getVersion).mockResolvedValue("1.0.0-beta");
   vi.mocked(check).mockResolvedValue(null);
   vi.mocked(relaunch).mockResolvedValue(undefined);
   Object.defineProperty(window.navigator, "language", {

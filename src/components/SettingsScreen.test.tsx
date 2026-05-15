@@ -64,13 +64,13 @@ describe("SettingsScreen", () => {
   });
 
   it("shows current version and up-to-date state after manual check", async () => {
-    vi.mocked(getVersion).mockResolvedValue("0.0.1-beta");
+    vi.mocked(getVersion).mockResolvedValue("1.0.0-beta");
     vi.mocked(check).mockResolvedValue(null);
 
     const { getByText, getByRole } = render(() => <SettingsScreen />);
 
     await waitFor(() => {
-      expect(getByText("0.0.1-beta")).toBeInTheDocument();
+      expect(getByText("1.0.0 Beta")).toBeInTheDocument();
     });
 
     fireEvent.click(getByRole("button", { name: "Проверить обновления" }));

@@ -11,6 +11,7 @@ import {
 import { useUpdater } from "../hooks/useUpdater";
 import { changeLanguage, locale, t, type Locale } from "../store/i18n";
 import { setCurrentView } from "../stores/navigationStore";
+import { formatUiVersion } from "../lib/version";
 import { TopBar } from "./TopBar";
 
 type SelectCardProps<T extends string> = {
@@ -317,7 +318,7 @@ export function SettingsScreen() {
                 {t("currentVersionLabel")}
               </span>
               <span class="font-mono text-ink" style={{ "font-size": "12px", "font-weight": "600" }}>
-                {appVersion() || "—"}
+                {appVersion() ? formatUiVersion(appVersion()) : "—"}
               </span>
             </div>
 
