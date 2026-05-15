@@ -1,6 +1,8 @@
 import { Show, onMount } from "solid-js";
 import { MainScreen } from "./components/MainScreen";
+import { ChangelogModal } from "./components/ChangelogModal";
 import { SettingsScreen } from "./components/SettingsScreen";
+import { initializeUpdater } from "./hooks/useUpdater";
 import { initializeI18n } from "./store/i18n";
 import { currentView } from "./stores/navigationStore";
 import { initializePreferences } from "./stores/preferencesStore";
@@ -9,6 +11,7 @@ function App() {
   onMount(() => {
     initializeI18n();
     initializePreferences();
+    initializeUpdater({ checkOnLaunch: true });
   });
 
   return (
@@ -25,6 +28,8 @@ function App() {
             <SettingsScreen />
           </div>
         </Show>
+
+        <ChangelogModal />
       </div>
     </main>
   );

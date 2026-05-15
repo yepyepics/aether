@@ -16,9 +16,14 @@ target/
 # Tauri
 src-tauri/target/
 
+# Updater signing keys
+*.key
+*.pem
+
 # System files
 .DS_Store
 Thumbs.db
 
 # yt-dlp sidecar binaries (downloaded separately, not committed)
 src-tauri/binaries/yt-dlp-*
+src-tauri/bin/ffmpeg-*

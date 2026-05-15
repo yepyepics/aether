@@ -1,6 +1,7 @@
-import { render, fireEvent } from "@solidjs/testing-library";
+import { render, fireEvent, waitFor } from "@solidjs/testing-library";
 import { beforeEach, vi } from "vitest";
 import { invoke } from "@tauri-apps/api/core";
+import { listen } from "@tauri-apps/api/event";
 import { MainScreen } from "./MainScreen";
 import { currentView, resetNavigationForTests } from "../stores/navigationStore";
 import { resetPreferencesForTests } from "../stores/preferencesStore";
@@ -11,6 +12,7 @@ describe("MainScreen", () => {
     resetNavigationForTests();
     resetPreferencesForTests();
     vi.mocked(invoke).mockClear();
+    vi.mocked(listen).mockClear();
   });
 
   it("renders URL input", () => {
@@ -126,5 +128,49 @@ describe("MainScreen", () => {
       videoFormat: "webm",
       audioFormat: "wav",
     }));
+  });
+
+  it("shows a clear error when ffmpeg is required to merge video downloads", async () => {
+    localStorage.setItem("aether.defaultVideoFormat", "mkv");
+    vi.mocked(invoke).mockRejectedValueOnce("missing_ffmpeg_for_video_format");
+
+    const { getByPlaceholderText, getByRole, findByText } = render(() => <MainScreen />);
+    fireEvent.input(getByPlaceholderText("Вставьте ссылку на видео…"), {
+      target: { value: "https://youtube.com/watch?v=test" },
+    });
+    fireEvent.click(getByRole("button", { name: "Скачать" }));
+
+    expect(await findByText("Для объединения видео и аудио нужен ffmpeg. Установите ffmpeg и повторите загрузку."))
+      .toBeInTheDocument();
+
+    await waitFor(() => {
+      expect(getByRole("button", { name: "Скачать" })).toBeInTheDocument();
+    });
+  });
+
+  it("shows the selected video container in progress even when yt-dlp reports an intermediate file", async () => {
+    localStorage.setItem("aether.defaultVideoFormat", "mkv");
+
+    const listeners: Record<string, (event: { payload: { line: string } }) => void> = {};
+    vi.mocked(listen).mockImplementation(async (event, callback) => {
+      listeners[event] = callback as (event: { payload: { line: string } }) => void;
+      return () => {};
+    });
+
+    const { getByPlaceholderText, getByRole, findByText } = render(() => <MainScreen />);
+    fireEvent.input(getByPlaceholderText("Вставьте ссылку на видео…"), {
+      target: { value: "https://youtube.com/watch?v=test" },
+    });
+    fireEvent.click(getByRole("button", { name: "Скачать" }));
+
+    await waitFor(() => {
+      expect(listeners["ytdlp-stdout"]).toBeDefined();
+    });
+
+    listeners["ytdlp-stdout"]({
+      payload: { line: "[download] Destination: /tmp/demo.mp4" },
+    });
+
+    expect(await findByText("demo.mkv")).toBeInTheDocument();
   });
 });

@@ -1,6 +1,10 @@
-import { fireEvent, render } from "@solidjs/testing-library";
-import { beforeEach } from "vitest";
+import { fireEvent, render, waitFor } from "@solidjs/testing-library";
+import { getVersion } from "@tauri-apps/api/app";
+import { relaunch } from "@tauri-apps/plugin-process";
+import { check } from "@tauri-apps/plugin-updater";
+import { beforeEach, vi } from "vitest";
 import { SettingsScreen } from "./SettingsScreen";
+import { PENDING_CHANGELOG_STORAGE_KEY } from "../lib/pendingChangelog";
 import { locale, t } from "../store/i18n";
 import { resetNavigationForTests } from "../stores/navigationStore";
 import { resetPreferencesForTests } from "../stores/preferencesStore";
@@ -49,5 +53,56 @@ describe("SettingsScreen", () => {
     expect(getByText("Settings")).toBeInTheDocument();
     expect(getByLabelText("Язык / Language")).toHaveValue("en");
     expect(t("btnDownload")).toBe("Download");
+  });
+
+  it("persists auto-update preference immediately", () => {
+    const { getByRole } = render(() => <SettingsScreen />);
+
+    fireEvent.click(getByRole("switch", { name: "Автоматически проверять обновления" }));
+
+    expect(localStorage.getItem("aether.autoUpdateEnabled")).toBe("false");
+  });
+
+  it("shows current version and up-to-date state after manual check", async () => {
+    vi.mocked(getVersion).mockResolvedValue("0.0.1-beta");
+    vi.mocked(check).mockResolvedValue(null);
+
+    const { getByText, getByRole } = render(() => <SettingsScreen />);
+
+    await waitFor(() => {
+      expect(getByText("0.0.1-beta")).toBeInTheDocument();
+    });
+
+    fireEvent.click(getByRole("button", { name: "Проверить обновления" }));
+
+    await waitFor(() => {
+      expect(getByText("У вас установлена последняя версия")).toBeInTheDocument();
+    });
+  });
+
+  it("offers install action when an update is available", async () => {
+    const downloadAndInstall = vi.fn().mockResolvedValue(undefined);
+
+    vi.mocked(check).mockResolvedValue({
+      version: "0.2.0",
+      body: "- Улучшен updater",
+      downloadAndInstall,
+    } as unknown as Awaited<ReturnType<typeof check>>);
+
+    const { getByRole, getByText } = render(() => <SettingsScreen />);
+
+    fireEvent.click(getByRole("button", { name: "Проверить обновления" }));
+
+    await waitFor(() => {
+      expect(getByText("Доступна версия v0.2.0")).toBeInTheDocument();
+    });
+
+    fireEvent.click(getByRole("button", { name: "Установить и перезапустить" }));
+
+    await waitFor(() => {
+      expect(downloadAndInstall).toHaveBeenCalledTimes(1);
+      expect(relaunch).toHaveBeenCalledTimes(1);
+      expect(localStorage.getItem(PENDING_CHANGELOG_STORAGE_KEY)).toContain("\"version\":\"0.2.0\"");
+    });
   });
 });
