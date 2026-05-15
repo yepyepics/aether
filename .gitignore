@@ -16,6 +16,10 @@ target/
 # Tauri
 src-tauri/target/
 
+# Updater signing keys
+*.key
+*.pem
+
 # System files
 .DS_Store
 Thumbs.db

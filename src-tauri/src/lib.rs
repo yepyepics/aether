@@ -261,6 +261,15 @@ pub fn run() {
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_shell::init())
         .plugin(tauri_plugin_dialog::init())
+        .plugin(tauri_plugin_process::init())
+        .plugin({
+            let updater = tauri_plugin_updater::Builder::new();
+            let updater = match std::env::var("TAURI_UPDATER_PUBLIC_KEY") {
+                Ok(pubkey) if !pubkey.trim().is_empty() => updater.pubkey(pubkey),
+                _ => updater,
+            };
+            updater.build()
+        })
         .setup(|app| {
             let handle = app.handle().clone();
             tauri::async_runtime::spawn(updater::check_and_update(handle));
@@ -343,7 +352,9 @@ mod tests {
             Some(Path::new("/tmp/ffmpeg")),
         );
 
-        assert!(args.windows(2).any(|pair| pair == ["-f", "bestvideo+bestaudio/best"]));
+        assert!(args
+            .windows(2)
+            .any(|pair| pair == ["-f", "bestvideo+bestaudio/best"]));
     }
 
     #[test]

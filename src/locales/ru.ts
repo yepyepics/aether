@@ -39,6 +39,7 @@ export const ru = {
   settingsTitle: "Настройки",
   settingsDescription:
     "Настройки формата сохраняются и применяются автоматически при каждой новой загрузке.",
+  settingsGeneralSectionTitle: "Основные",
   languageLabel: "Язык / Language",
   languageHint: "Выберите язык интерфейса. Изменение применяется сразу.",
   languageOptionRu: "Русский",
@@ -47,6 +48,19 @@ export const ru = {
   defaultVideoFormatHint: "Контейнер для итогового файла после объединения видео и аудио. Для видео-загрузок нужен ffmpeg.",
   defaultAudioFormatLabel: "Дефолтный формат аудио",
   defaultAudioFormatHint: "Формат, в который будет конвертировано аудио при извлечении.",
+  updatesSectionTitle: "Обновления",
+  updatesSectionDescription: "Управляйте автоматической проверкой и при необходимости запускайте обновление вручную.",
+  autoUpdateLabel: "Автоматически проверять обновления",
+  autoUpdateHint: "Проверять наличие новых версий при запуске приложения.",
+  currentVersionLabel: "Текущая версия",
+  updatesCheckButton: "Проверить обновления",
+  updatesCheckingButton: "Проверка...",
+  updatesUpToDateLabel: "У вас установлена последняя версия",
+  updatesAvailableLabel: "Доступна версия",
+  updatesInstallButton: "Установить и перезапустить",
+  updatesInstallingButton: "Скачивание и установка...",
+  updatesUnavailableError: "Автообновление не настроено для этой сборки. Добавьте публичный ключ updater перед релизом.",
+  updatesCheckFailedError: "Не удалось проверить обновления. Попробуйте ещё раз чуть позже.",
 } as const;
 
 export type TranslationKey = keyof typeof ru;

@@ -1,5 +1,6 @@
 import { fireEvent, render } from "@solidjs/testing-library";
 import { beforeEach } from "vitest";
+import { check } from "@tauri-apps/plugin-updater";
 import App from "./App";
 import { PENDING_CHANGELOG_STORAGE_KEY } from "./lib/pendingChangelog";
 import { resetNavigationForTests } from "./stores/navigationStore";
@@ -47,5 +48,13 @@ describe("App", () => {
     expect(
       queryByRole("heading", { name: "Обновлено до версии v0.2.0" })
     ).not.toBeInTheDocument();
+  });
+
+  it("skips startup update check when auto-update is disabled", () => {
+    localStorage.setItem("aether.autoUpdateEnabled", "false");
+
+    render(() => <App />);
+
+    expect(check).not.toHaveBeenCalled();
   });
 });
