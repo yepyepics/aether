@@ -55,7 +55,7 @@ jobs:
             librsvg2-dev \
             patchelf
 
-      - name: Prepare sidecar directories
+      - name: Prepare sidecar directory
         shell: bash
         run: mkdir -p src-tauri/bin
 

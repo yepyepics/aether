@@ -1,3 +1,5 @@
+import { formatUiVersion } from "../lib/version";
+
 type ActionConfig = {
   label: string;
   ariaLabel: string;
@@ -44,7 +46,7 @@ export function TopBar(props: Props) {
           class="glass-surface text-muted font-medium rounded-pill"
           style={{ "font-size": "12px", padding: "3px 10px" }}
         >
-          {props.version ?? "0.0.1 Beta"}
+          {formatUiVersion(props.version ?? "1.0.0-beta")}
         </span>
         {props.trailingAction ? (
           <button
