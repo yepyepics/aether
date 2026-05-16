@@ -221,6 +221,7 @@ export function SettingsScreen() {
       style={{ display: "flex", "flex-direction": "column", "min-height": "0" }}
     >
       <TopBar
+        version={appVersion()}
         leadingAction={{
           label: t("backToHomeLabel"),
           ariaLabel: t("backToHomeAriaLabel"),

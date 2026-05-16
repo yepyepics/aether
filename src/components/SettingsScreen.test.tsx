@@ -70,7 +70,7 @@ describe("SettingsScreen", () => {
     const { getByText, getByRole } = render(() => <SettingsScreen />);
 
     await waitFor(() => {
-      expect(getByText("1.0.0 Beta")).toBeInTheDocument();
+      expect(getByText("Текущая версия").nextElementSibling).toHaveTextContent("1.0.0 Beta");
     });
 
     fireEvent.click(getByRole("button", { name: "Проверить обновления" }));
