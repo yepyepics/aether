@@ -41,7 +41,7 @@
   },
   "plugins": {
     "updater": {
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEE4NUJBQTgyOUJENzhCNDEKUldSQmk5ZWJncXBicUhDZGNuWVVBeE5xOGFNRllKVjhQczBoMlZGc0diNkhjbGsrSzJNbm9hOUQK",
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDc3RTMyRjgxOTRBOERGMTUKUldRVjM2aVVnUy9qZDMrV05IVit1NUJxZmpPVElzQUM3NEk4TjZrNjhYemRRN3pQdU95Z012NE4K",
       "endpoints": [
         "https://github.com/yepyepics/aether/releases/latest/download/latest.json"
       ]
