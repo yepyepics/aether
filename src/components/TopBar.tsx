@@ -46,7 +46,7 @@ export function TopBar(props: Props) {
           class="glass-surface text-muted font-medium rounded-pill"
           style={{ "font-size": "12px", padding: "3px 10px" }}
         >
-          {formatUiVersion(props.version ?? "1.0.0-beta")}
+          {props.version ? formatUiVersion(props.version) : "—"}
         </span>
         {props.trailingAction ? (
           <button

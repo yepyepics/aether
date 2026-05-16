@@ -9,7 +9,7 @@
     "build": "vite build",
     "serve": "vite preview",
     "lint": "tsc --noEmit && cargo fmt --manifest-path src-tauri/Cargo.toml --all --check",
-    "tauri": "tauri",
+    "tauri": "node scripts/run-tauri.mjs",
     "test": "vitest run",
     "test:watch": "vitest"
   },

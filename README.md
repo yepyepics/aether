@@ -118,6 +118,8 @@ pnpm install
 pnpm tauri dev
 ```
 
+`pnpm tauri dev` and `pnpm tauri build` now sync the app version from the latest `v*` git tag before launching Tauri, so the UI version matches your tagged release line during local development too.
+
 ### Run tests
 
 ```bash

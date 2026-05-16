@@ -8,6 +8,11 @@ describe("TopBar", () => {
     expect(getByText("Aether")).toBeInTheDocument();
   });
 
+  it("renders placeholder version when version is unavailable", () => {
+    const { getByText } = render(() => <TopBar />);
+    expect(getByText("—")).toBeInTheDocument();
+  });
+
   it("renders custom version prop", () => {
     const { getByText } = render(() => <TopBar version="v1.2.3" />);
     expect(getByText("v1.2.3")).toBeInTheDocument();

@@ -12,6 +12,7 @@ import {
   defaultVideoFormat,
   initializePreferences,
 } from "../stores/preferencesStore";
+import { useUpdater } from "../hooks/useUpdater";
 import { setCurrentView } from "../stores/navigationStore";
 import { t } from "../store/i18n";
 import { DownloadButton } from "./DownloadButton";
@@ -80,6 +81,8 @@ const fallbackLabelFromUrl = (rawUrl: string, fallbackLabel: string) => {
 };
 
 export function MainScreen() {
+  const { appVersion } = useUpdater();
+
   const mapDownloadError = (error: unknown) => {
     const message = typeof error === "string"
       ? error
@@ -293,6 +296,7 @@ export function MainScreen() {
       style={{ display: "flex", "flex-direction": "column", "min-height": "0" }}
     >
       <TopBar
+        version={appVersion()}
         trailingAction={{
           label: "⚙",
           ariaLabel: t("settingsOpenAriaLabel"),
